@@ -24,7 +24,7 @@ public class DrawingBoardView extends View {
     private Paint paint;
 
     public static interface DrawingBoardListener {
-
+        void onPointerCountChange(int count);
     }
 
     public DrawingBoardView(Context context) {
@@ -40,6 +40,10 @@ public class DrawingBoardView extends View {
     public DrawingBoardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.init(context);
+    }
+
+    public void setListener(DrawingBoardListener listener) {
+        this.listener = listener;
     }
 
     private void init(Context context) {
@@ -62,6 +66,7 @@ public class DrawingBoardView extends View {
         int action = MotionEventCompat.getActionMasked(event);
         int index = MotionEventCompat.getActionIndex(event);
         int id = event.getPointerId(index);
+        int count = event.getPointerCount();
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -71,6 +76,9 @@ public class DrawingBoardView extends View {
                 p.x = event.getX(index);
                 p.y = event.getY(index);
                 maps.put(id, p);
+                if (listener != null) {
+                    listener.onPointerCountChange(count);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 //update pointer position
@@ -86,6 +94,9 @@ public class DrawingBoardView extends View {
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
                 maps.remove(id);
+                if (listener != null) {
+                    listener.onPointerCountChange(count - 1);
+                }
                 break;
         }
         invalidate();
