@@ -3,6 +3,7 @@ package com.quanganhct.myapplication;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -18,10 +19,21 @@ import java.util.Random;
 public class DrawingBoardView extends View {
     private Context context;
     private DrawingBoardListener listener;
-    int currentCount = 1;
     private HashMap<Integer, MyPoint> maps = new HashMap<>();
     private Random random;
     private Paint paint;
+    private final int MAX_BORDER = 4;
+    private final int DISTANCE = 20;
+    private final int RADIUS = 100;
+    private final int MAX_RADIUS = 120;
+    private int currentRadius = 100;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            invalidate();
+        }
+    };
 
     public static interface DrawingBoardListener {
         void onPointerCountChange(int count);
@@ -57,8 +69,22 @@ public class DrawingBoardView extends View {
         super.onDraw(canvas);
         for (MyPoint p : maps.values()) {
             this.paint.setARGB(255, p.r, p.g, p.b);
-            canvas.drawCircle(p.x, p.y, 100, paint);
+            this.paint.setStyle(Paint.Style.FILL);
+            canvas.drawCircle(p.x, p.y, RADIUS, paint);
+            this.paint.setStyle(Paint.Style.STROKE);
+            for (int i = 1; i <= MAX_BORDER; i++) {
+                canvas.drawCircle(p.x, p.y, currentRadius + i * DISTANCE, paint);
+            }
         }
+
+        if (currentRadius < RADIUS) {
+            currentRadius = RADIUS;
+        } else if (currentRadius <= MAX_RADIUS) {
+            currentRadius += 4;
+        } else {
+            currentRadius = RADIUS;
+        }
+        handler.postDelayed(runnable, 50);
     }
 
     @Override
@@ -99,7 +125,7 @@ public class DrawingBoardView extends View {
                 }
                 break;
         }
-        invalidate();
+//        invalidate();
         Log.w("On Touch", String.format("action: %s, index: %d, count: %d, id: %d", actionToString(action), index, event.getPointerCount(), id));
         return true;
     }
