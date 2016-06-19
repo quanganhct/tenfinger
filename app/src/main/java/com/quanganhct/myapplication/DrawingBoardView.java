@@ -22,10 +22,9 @@ public class DrawingBoardView extends View {
     private HashMap<Integer, MyPoint> maps = new HashMap<>();
     private Random random;
     private Paint paint;
-    private final int MAX_BORDER = 4;
-    private final int DISTANCE = 20;
     private final int RADIUS = 100;
-    private final int MAX_RADIUS = 120;
+    private final int MAX_RADIUS = 150;
+    private int sign = 1;
     private int currentRadius = 100;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
@@ -71,20 +70,18 @@ public class DrawingBoardView extends View {
             this.paint.setARGB(255, p.r, p.g, p.b);
             this.paint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(p.x, p.y, RADIUS, paint);
-            this.paint.setStyle(Paint.Style.STROKE);
-            for (int i = 1; i <= MAX_BORDER; i++) {
-                canvas.drawCircle(p.x, p.y, currentRadius + i * DISTANCE, paint);
-            }
+            this.paint.setARGB(80, p.r, p.g, p.b);
+            canvas.drawCircle(p.x, p.y, currentRadius, paint);
         }
 
         if (currentRadius < RADIUS) {
             currentRadius = RADIUS;
-        } else if (currentRadius <= MAX_RADIUS) {
-            currentRadius += 4;
-        } else {
-            currentRadius = RADIUS;
+            sign = 1;
+        } else if (currentRadius > MAX_RADIUS) {
+            sign = -1;
         }
-        handler.postDelayed(runnable, 50);
+        currentRadius += sign * 2;
+        handler.postDelayed(runnable, 40);
     }
 
     @Override
