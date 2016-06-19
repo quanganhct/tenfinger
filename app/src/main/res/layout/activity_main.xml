@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ll_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -32,26 +32,33 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <com.quanganhct.myapplication.DrawingBoardView
-        android:id="@+id/main_screen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
     <RelativeLayout
+        android:id="@+id/rl_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
         <ImageView
             android:id="@+id/img_valide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/valide"
-            android:visibility="invisible"
-            />
+            android:src="@drawable/ic_valide"
+            android:visibility="invisible" />
+
         <ImageView
             android:id="@+id/img_non_valide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/nonvalide"
-            android:visibility="invisible"
-            />
+            android:src="@drawable/ic_non_valide"
+            android:visibility="invisible" />
     </RelativeLayout>
-</LinearLayout>
+
+    <com.quanganhct.myapplication.DrawingBoardView
+        android:id="@+id/main_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_2"
+        android:layout_below="@+id/ll_1" />
+
+
+</RelativeLayout>

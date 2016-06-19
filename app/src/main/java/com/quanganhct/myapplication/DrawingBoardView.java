@@ -84,8 +84,6 @@ public class DrawingBoardView extends View {
         finger[6] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger7)).getBitmap();
         finger[7] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger8)).getBitmap();
         finger[8] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger9)).getBitmap();
-        val = ((BitmapDrawable) getResources().getDrawable(R.drawable.valide)).getBitmap();
-        nonval = ((BitmapDrawable) getResources().getDrawable(R.drawable.nonvalide)).getBitmap();
     }
 
     @Override
