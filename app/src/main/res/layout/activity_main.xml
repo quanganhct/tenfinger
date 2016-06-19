@@ -16,6 +16,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:padding="5sp"
+            android:text="Change Number"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -32,4 +36,22 @@
         android:id="@+id/main_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_valide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/valide"
+            android:visibility="invisible"
+            />
+        <ImageView
+            android:id="@+id/img_non_valide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nonvalide"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
 </LinearLayout>

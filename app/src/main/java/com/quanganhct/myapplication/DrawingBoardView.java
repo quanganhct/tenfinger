@@ -30,25 +30,18 @@ public class DrawingBoardView extends View {
     private int sign = 1;
     private int currentRadius = 100;
     private Handler handler = new Handler();
+    private int newNum = 0;
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             invalidate();
         }
     };
-    Bitmap doigt1;
-    Bitmap doigt2;
-    Bitmap doigt3;
-    Bitmap doigt4;
-    Bitmap doigt5;
-    Bitmap doigt6;
-    Bitmap doigt7;
-    Bitmap doigt8;
-    Bitmap doigt9;
-    int alea;
 
-
-
+    Bitmap[] finger = new Bitmap[9];
+    Bitmap val;
+    Bitmap nonval;
 
     public static interface DrawingBoardListener {
         void onPointerCountChange(int count);
@@ -61,16 +54,12 @@ public class DrawingBoardView extends View {
 
     public DrawingBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        doigt1=((BitmapDrawable) getResources().getDrawable(R.drawable.finger1)).getBitmap();
-        doigt2=((BitmapDrawable) getResources().getDrawable(R.drawable.finger2)).getBitmap();
-        doigt3=((BitmapDrawable) getResources().getDrawable(R.drawable.finger3)).getBitmap();
-        doigt4=((BitmapDrawable) getResources().getDrawable(R.drawable.finger4)).getBitmap();
-        doigt5=((BitmapDrawable) getResources().getDrawable(R.drawable.finger5)).getBitmap();
-        doigt6=((BitmapDrawable) getResources().getDrawable(R.drawable.finger6)).getBitmap();
-        doigt7=((BitmapDrawable) getResources().getDrawable(R.drawable.finger7)).getBitmap();
-        doigt8=((BitmapDrawable) getResources().getDrawable(R.drawable.finger8)).getBitmap();
-        doigt9=((BitmapDrawable) getResources().getDrawable(R.drawable.finger9)).getBitmap();
         this.init(context);
+    }
+
+    public int newNumber() {
+        newNum = random.nextInt(9);
+        return newNum;
     }
 
     public DrawingBoardView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -86,50 +75,27 @@ public class DrawingBoardView extends View {
         this.context = context;
         this.random = new Random();
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        finger[0] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger1)).getBitmap();
+        finger[1] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger2)).getBitmap();
+        finger[2] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger3)).getBitmap();
+        finger[3] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger4)).getBitmap();
+        finger[4] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger5)).getBitmap();
+        finger[5] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger6)).getBitmap();
+        finger[6] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger7)).getBitmap();
+        finger[7] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger8)).getBitmap();
+        finger[8] = ((BitmapDrawable) getResources().getDrawable(R.drawable.finger9)).getBitmap();
+        val = ((BitmapDrawable) getResources().getDrawable(R.drawable.valide)).getBitmap();
+        nonval = ((BitmapDrawable) getResources().getDrawable(R.drawable.nonvalide)).getBitmap();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Paint paint = new Paint();
-        Rect Cube= new Rect();
-        Rect Cube2= new Rect();
-        Cube.set(200,150,800,750);
-        Cube2.set(200,800,800,1400);
-        Random rand = new Random();
-        alea = rand.nextInt(10);
+        Rect Cube = new Rect();
+        Cube.set((int) 150, (int) 150, (int) 750, (int) 750);
 
-        if (alea==1) {
-            canvas.drawBitmap(doigt1, null, Cube, paint);
-        }
-        if (alea==2) {
-            canvas.drawBitmap(doigt2, null, Cube, paint);
-        }
-        if (alea==3) {
-            canvas.drawBitmap(doigt3, null, Cube, paint);
-        }
-        if (alea==4) {
-            canvas.drawBitmap(doigt4, null, Cube, paint);
-        }
-        if (alea==5) {
-            canvas.drawBitmap(doigt5, null, Cube, paint);
-        }
-        if (alea==6) {
-            canvas.drawBitmap(doigt6, null, Cube, paint);
-        }
-        if (alea==7) {
-            canvas.drawBitmap(doigt7, null, Cube, paint);
-        }
-        if (alea==8) {
-            canvas.drawBitmap(doigt8, null, Cube, paint);
-        }
-        if (alea==9) {
-            canvas.drawBitmap(doigt9, null, Cube, paint);
-        }
-        if (alea==9) {
-            canvas.drawBitmap(doigt5, null, Cube, paint);
-            canvas.drawBitmap(doigt5, null, Cube2, paint);
-        }
+        canvas.drawBitmap(finger[newNum], null, Cube, paint);
+
 
         for (MyPoint p : maps.values()) {
             this.paint.setARGB(255, p.r, p.g, p.b);
