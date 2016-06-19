@@ -62,6 +62,14 @@ public class DrawingBoardView extends View {
     public DrawingBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         doigt1=((BitmapDrawable) getResources().getDrawable(R.drawable.finger1)).getBitmap();
+        doigt2=((BitmapDrawable) getResources().getDrawable(R.drawable.finger2)).getBitmap();
+        doigt3=((BitmapDrawable) getResources().getDrawable(R.drawable.finger3)).getBitmap();
+        doigt4=((BitmapDrawable) getResources().getDrawable(R.drawable.finger4)).getBitmap();
+        doigt5=((BitmapDrawable) getResources().getDrawable(R.drawable.finger5)).getBitmap();
+        doigt6=((BitmapDrawable) getResources().getDrawable(R.drawable.finger6)).getBitmap();
+        doigt7=((BitmapDrawable) getResources().getDrawable(R.drawable.finger7)).getBitmap();
+        doigt8=((BitmapDrawable) getResources().getDrawable(R.drawable.finger8)).getBitmap();
+        doigt9=((BitmapDrawable) getResources().getDrawable(R.drawable.finger9)).getBitmap();
         this.init(context);
     }
 
@@ -83,9 +91,11 @@ public class DrawingBoardView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Paint paint = new Paint();
         Rect Cube= new Rect();
-        Cube.set((int) 150, (int) 150, (int) 750, (int) 750);
-
+        Rect Cube2= new Rect();
+        Cube.set(200,150,800,750);
+        Cube2.set(200,800,800,1400);
         Random rand = new Random();
         alea = rand.nextInt(10);
 
@@ -115,6 +125,10 @@ public class DrawingBoardView extends View {
         }
         if (alea==9) {
             canvas.drawBitmap(doigt9, null, Cube, paint);
+        }
+        if (alea==9) {
+            canvas.drawBitmap(doigt5, null, Cube, paint);
+            canvas.drawBitmap(doigt5, null, Cube2, paint);
         }
 
         for (MyPoint p : maps.values()) {
