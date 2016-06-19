@@ -1,8 +1,11 @@
 package com.quanganhct.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
@@ -33,6 +36,19 @@ public class DrawingBoardView extends View {
             invalidate();
         }
     };
+    Bitmap doigt1;
+    Bitmap doigt2;
+    Bitmap doigt3;
+    Bitmap doigt4;
+    Bitmap doigt5;
+    Bitmap doigt6;
+    Bitmap doigt7;
+    Bitmap doigt8;
+    Bitmap doigt9;
+    int alea;
+
+
+
 
     public static interface DrawingBoardListener {
         void onPointerCountChange(int count);
@@ -45,6 +61,7 @@ public class DrawingBoardView extends View {
 
     public DrawingBoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        doigt1=((BitmapDrawable) getResources().getDrawable(R.drawable.finger1)).getBitmap();
         this.init(context);
     }
 
@@ -66,6 +83,40 @@ public class DrawingBoardView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Rect Cube= new Rect();
+        Cube.set((int) 150, (int) 150, (int) 750, (int) 750);
+
+        Random rand = new Random();
+        alea = rand.nextInt(10);
+
+        if (alea==1) {
+            canvas.drawBitmap(doigt1, null, Cube, paint);
+        }
+        if (alea==2) {
+            canvas.drawBitmap(doigt2, null, Cube, paint);
+        }
+        if (alea==3) {
+            canvas.drawBitmap(doigt3, null, Cube, paint);
+        }
+        if (alea==4) {
+            canvas.drawBitmap(doigt4, null, Cube, paint);
+        }
+        if (alea==5) {
+            canvas.drawBitmap(doigt5, null, Cube, paint);
+        }
+        if (alea==6) {
+            canvas.drawBitmap(doigt6, null, Cube, paint);
+        }
+        if (alea==7) {
+            canvas.drawBitmap(doigt7, null, Cube, paint);
+        }
+        if (alea==8) {
+            canvas.drawBitmap(doigt8, null, Cube, paint);
+        }
+        if (alea==9) {
+            canvas.drawBitmap(doigt9, null, Cube, paint);
+        }
+
         for (MyPoint p : maps.values()) {
             this.paint.setARGB(255, p.r, p.g, p.b);
             this.paint.setStyle(Paint.Style.FILL);
