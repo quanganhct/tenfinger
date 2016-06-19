@@ -80,7 +80,7 @@ public class DrawingBoardView extends View {
         } else if (currentRadius > MAX_RADIUS) {
             sign = -1;
         }
-        currentRadius += sign * 2;
+        currentRadius += sign * 4;
         handler.postDelayed(runnable, 40);
     }
 
